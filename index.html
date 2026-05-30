@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troopers Studio — Dance Studio Bangkok</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Icons (Lucide line icons) -->
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+
+<style>
+/* ============================================================
+   DESIGN TOKENS — Troopers Studio (neon-on-black dance studio)
+   ============================================================ */
+:root{
+  /* brand / neon */
+  --volt-300:#6BFFC2; --volt-400:#2BEF9C; --volt-500:#00E47E; --volt-600:#00C753; --volt-700:#04A85E;
+  --blue-400:#3E8BFF; --blue-500:#1773FF; --blue-600:#0C6FF1;
+  --magenta-500:#FF2BC2; --purple-500:#9D4EDF;
+  /* ink / surfaces */
+  --ink-1000:#050608; --ink-900:#07080A; --ink-850:#0C0E12; --ink-800:#12151B;
+  --ink-700:#1A1E26; --ink-600:#262B35; --ink-500:#38404D;
+  /* text */
+  --fg-1:#F4F7FB; --fg-2:#AEB6C2; --fg-3:#6B7280; --fg-on-volt:#04130C;
+  /* lines */
+  --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.16); --line-volt:rgba(0,228,126,.45);
+  /* glows + shadows */
+  --glow-volt:0 0 14px rgba(0,228,126,.55),0 0 38px rgba(0,228,126,.30);
+  --glow-volt-sm:0 0 8px rgba(0,228,126,.55);
+  --glow-blue:0 0 14px rgba(23,115,255,.55),0 0 38px rgba(23,115,255,.30);
+  --shadow-md:0 6px 20px rgba(0,0,0,.55); --shadow-lg:0 18px 50px rgba(0,0,0,.65);
+  /* radii */
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-pill:999px;
+  /* type */
+  --font-display:"Kanit","Noto Sans Thai",system-ui,sans-serif;
+  --font-body:"Kanit","Noto Sans Thai",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+
+/* ============================================================ BASE ======== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink-900);color:var(--fg-1);font-family:var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+ul{list-style:none}
+::selection{background:var(--volt-500);color:var(--fg-on-volt)}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+.section{padding:96px 0;position:relative}
+.section.alt{background:var(--ink-850)}
+.hr{height:1px;background:var(--line);border:none}
+
+/* ============================================================ LANGUAGE ==== */
+/* Both Thai + English text live in the HTML; CSS shows one at a time. */
+html[data-lang="th"] .lang-en{display:none}
+html[data-lang="en"] .lang-th{display:none}
+
+/* ============================================================ TYPE ======== */
+.kicker{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--volt-500);display:inline-flex;align-items:center;gap:9px}
+.kicker::before{content:"";width:22px;height:2px;background:var(--volt-500);box-shadow:var(--glow-volt-sm)}
+.hhead{font-family:var(--font-display);font-weight:900;font-size:clamp(44px,6.4vw,98px);line-height:.9;letter-spacing:-.02em;text-transform:uppercase}
+.shead{font-family:var(--font-display);font-weight:800;font-size:clamp(32px,4vw,52px);line-height:1.04;letter-spacing:-.01em;text-transform:uppercase;margin-top:16px}
+.subhead{font-family:var(--font-display);font-weight:800;font-size:clamp(24px,2.6vw,34px);text-transform:uppercase;margin-top:14px}
+.lead{font-size:17px;line-height:1.55;color:var(--fg-2);max-width:480px}
+.glow-volt{text-shadow:var(--glow-volt)}
+.volt{color:var(--volt-500)}
+.neon-outline-h{color:transparent;-webkit-text-stroke:2px var(--volt-500);text-shadow:var(--glow-volt)}
+
+.sechead{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.center-head{text-align:center;display:flex;flex-direction:column;align-items:center;margin-bottom:44px}
+.block-head{margin-top:64px;margin-bottom:28px}
+
+/* ============================================================ BUTTONS ===== */
+.btn{font-family:var(--font-display);font-weight:700;font-size:15px;border:none;border-radius:var(--r-pill);padding:14px 28px;cursor:pointer;display:inline-flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;transition:transform .16s cubic-bezier(.2,.8,.2,1),background .16s,box-shadow .16s,border-color .16s,color .16s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--volt-500);color:var(--fg-on-volt);box-shadow:var(--glow-volt-sm)}
+.btn-primary:hover{background:var(--volt-400);box-shadow:var(--glow-volt)}
+.btn-blue{background:var(--blue-500);color:#fff;box-shadow:var(--glow-blue)}
+.btn-blue:hover{background:var(--blue-400)}
+.btn-ghost{background:transparent;color:var(--fg-1);border:1.5px solid var(--line-strong)}
+.btn-ghost:hover{border-color:var(--volt-500);color:var(--volt-500)}
+.btn-sm{padding:10px 18px;font-size:13px}
+.btn-lg{padding:17px 34px;font-size:17px}
+.btn-full{width:100%;justify-content:center}
+.btn i{width:18px;height:18px}
+
+/* ============================================================ CHIPS ======= */
+.chip{font-family:var(--font-display);font-weight:600;font-size:12px;padding:7px 14px;border-radius:var(--r-pill);text-transform:uppercase;letter-spacing:.05em;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.chip i{width:13px;height:13px}
+.chip-volt{background:var(--volt-500);color:var(--fg-on-volt)}
+.chip-mag{background:var(--magenta-500);color:#fff}
+.chip-blue{background:var(--blue-500);color:#fff}
+.chip-purple{background:var(--purple-500);color:#fff}
+
+/* ============================================================ CARDS ======= */
+.card{background:var(--ink-800);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);overflow:hidden;transition:transform .2s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--line-volt);box-shadow:var(--shadow-lg)}
+.class-card{padding:24px;display:flex;flex-direction:column;gap:14px}
+.class-card .title{font-family:var(--font-display);font-weight:800;font-size:24px}
+.class-card .desc{color:var(--fg-2);font-size:15px;line-height:1.55;flex:1}
+.class-card .foot{display:flex;align-items:center;justify-content:space-between}
+.class-card .lvl{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3)}
+.class-card .more{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--volt-500);text-transform:uppercase;letter-spacing:.02em}
+.class-card .more i{width:16px;height:16px}
+.card-top{display:flex;align-items:center;justify-content:space-between}
+
+/* icon circle */
+.icirc{width:52px;height:52px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;background:var(--ink-700);border:1px solid var(--line);color:var(--volt-500);flex-shrink:0}
+.icirc i{width:24px;height:24px}
+.icirc.sm{width:44px;height:44px}
+.icirc.sm i{width:20px;height:20px}
+.icirc.blue{color:var(--blue-500)}
+
+/* glow backdrops */
+.glow-bg{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+
+/* ============================================================ NAV ========= */
+.nav{position:sticky;top:0;z-index:50;background:rgba(7,8,10,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0}
+.brand .word{font-family:var(--font-display);font-weight:900;font-size:19px;letter-spacing:-.01em;text-transform:uppercase;line-height:1}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-links a{font-family:var(--font-display);font-weight:600;font-size:14.5px;color:var(--fg-2);white-space:nowrap;transition:color .16s}
+.nav-links a:hover{color:var(--volt-500)}
+.nav-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.langtoggle{display:flex;border:1px solid var(--line-strong);border-radius:var(--r-pill);overflow:hidden;font-family:var(--font-mono);font-size:12px;font-weight:600}
+.langbtn{padding:6px 12px;border:none;cursor:pointer;text-transform:uppercase;background:transparent;color:var(--fg-2)}
+.langbtn[aria-pressed="true"]{background:var(--volt-500);color:var(--fg-on-volt)}
+.nav-burger{display:none;background:transparent;border:none;color:var(--fg-1);cursor:pointer}
+.mobile-menu{display:none}
+.mobile-menu.open{display:flex;flex-direction:column;gap:2px;padding-bottom:14px}
+.mobile-menu a{font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--fg-1);padding:11px 0;border-bottom:1px solid var(--line)}
+
+/* ============================================================ MARQUEE ===== */
+.marq{overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink-1000)}
+.marq-track{display:inline-flex;gap:40px;padding:16px 0;animation:scrollx 28s linear infinite}
+.marq-track span{font-family:var(--font-display);font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.02em;color:var(--fg-2);display:inline-flex;align-items:center;gap:40px}
+.marq-track span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--volt-500);box-shadow:var(--glow-volt-sm)}
+@keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============================================================ STATS ======= */
+.stats-row{display:flex;gap:38px;flex-wrap:wrap;margin-top:40px}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat-v{font-family:var(--font-display);font-weight:900;font-size:34px;line-height:1}
+.stat-l{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)}
+
+/* ============================================================ YOUTUBE ===== */
+.yt{position:relative;width:100%;border-radius:var(--r-lg);overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:var(--shadow-md);cursor:pointer}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.yt-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s cubic-bezier(.2,.8,.2,1),filter .3s}
+.yt:hover .yt-thumb{transform:scale(1.05);filter:brightness(.78)}
+.yt-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.78));pointer-events:none}
+.yt-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:var(--volt-500);color:var(--fg-on-volt);display:flex;align-items:center;justify-content:center;box-shadow:var(--glow-volt);transition:transform .2s;z-index:2}
+.yt:hover .yt-play{transform:translate(-50%,-50%) scale(1.08)}
+.yt-play i{width:32px;height:32px;margin-left:3px}
+.yt-meta{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
+.yt-title{font-family:var(--font-display);font-weight:700;font-size:18px;color:#fff;line-height:1.2}
+.yt-sub{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;color:var(--fg-2);margin-top:5px;display:flex;align-items:center;gap:7px}
+.yt-badge{position:absolute;top:14px;left:14px;z-index:2}
+.yt-sm .yt-play{width:54px;height:54px}
+.yt-sm .yt-play i{width:23px;height:23px}
+.yt-sm .yt-title{font-size:15px}
+
+/* ============================================================ PHOTO PLACE = */
+.photo{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(140deg,#1A1E26,#0A0B0E);box-shadow:var(--shadow-md);border:1px dashed var(--line-strong);display:flex;align-items:center;justify-content:center;min-height:120px}
+.photo::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 120% at 75% 0%,rgba(255,43,194,.28),transparent 58%),radial-gradient(70% 110% at 0% 100%,rgba(23,115,255,.24),transparent 60%)}
+.photo-label{position:relative;z-index:1;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);text-align:center;padding:0 12px}
+
+/* ============================================================ FIELDS ====== */
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-2)}
+.field input,.field select{background:var(--ink-700);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:13px 14px;color:var(--fg-1);font-family:var(--font-body);font-size:15px;transition:border-color .16s,box-shadow .16s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--volt-500);box-shadow:var(--glow-volt-sm)}
+.field input::placeholder{color:var(--fg-3)}
+
+/* ============================================================ LAYOUT GRIDS = */
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center;position:relative;z-index:1}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.trio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:14px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.loc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:stretch}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:48px}
+.videos-feature{display:grid;gap:18px;position:relative;z-index:1}
+.vf-a{grid-template-columns:1.5fr 1fr}
+.vf-b{grid-template-columns:1fr 1.5fr;margin-top:18px}
+.vstack{display:grid;grid-template-rows:1fr 1fr;gap:18px}
+.reels-row{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px}
+
+/* ============================================================ PRICING ===== */
+.plan{padding:30px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:visible}
+.plan.featured{border:1.5px solid var(--volt-500);box-shadow:var(--glow-volt-sm),var(--shadow-md)}
+.plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%)}
+.plan-name{font-family:var(--font-display);font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.02em;color:var(--fg-2)}
+.plan-price{display:flex;align-items:baseline;gap:8px}
+.plan-price .amt{font-family:var(--font-display);font-weight:900;font-size:46px;color:var(--fg-1)}
+.plan.featured .plan-price .amt{color:var(--volt-500)}
+.plan-price .unit{font-family:var(--font-mono);font-size:13px;color:var(--fg-3)}
+.plan ul{display:flex;flex-direction:column;gap:12px;flex:1}
+.plan li{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:var(--fg-1)}
+.plan li i{width:18px;height:18px;color:var(--volt-500);flex-shrink:0;margin-top:1px}
+
+/* room rental strip + payment methods */
+.room-strip{margin-top:20px;padding:26px 30px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-color:var(--line-strong)}
+.room-strip .ttl{font-family:var(--font-display);font-weight:800;font-size:22px}
+.room-strip .sub{color:var(--fg-2);font-size:15px;margin-top:3px}
+.bigprice{font-family:var(--font-display);font-weight:900;font-size:34px}
+.bigprice .unit{font-family:var(--font-mono);font-size:13px;color:var(--fg-3);margin-left:6px}
+.pay-card{padding:24px;display:flex;gap:16px;align-items:flex-start}
+.pay-card .ttl{font-family:var(--font-display);font-weight:700;font-size:18px}
+.pay-card .desc{color:var(--fg-2);font-size:14px;line-height:1.45;margin-top:4px}
+.pay-card .val{font-family:var(--font-mono);font-size:13px;color:var(--volt-500);margin-top:8px;letter-spacing:.04em}
+.note{margin-top:18px;font-family:var(--font-mono);font-size:12px;color:var(--fg-3);letter-spacing:.03em}
+
+/* ============================================================ INFO ROWS === */
+.info-list{display:flex;flex-direction:column;gap:18px;margin-top:28px}
+.info-row{display:flex;gap:14px;align-items:flex-start}
+.info-row .lbl{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);margin-bottom:3px}
+.info-row .val{font-size:16px;color:var(--fg-1);line-height:1.45}
+.map-card{padding:0;overflow:hidden;min-height:440px}
+.map-card iframe{width:100%;height:100%;min-height:440px;border:0;filter:invert(.92) hue-rotate(180deg) saturate(.7) brightness(.95)}
+
+/* social row */
+.social-row{display:flex;gap:12px;margin-top:30px}
+.social{width:48px;height:48px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--ink-800);display:flex;align-items:center;justify-content:center;transition:border-color .16s,transform .16s}
+.social:hover{border-color:var(--line-volt);transform:translateY(-3px)}
+
+/* coach */
+.coach .name{font-family:var(--font-display);font-weight:800;font-size:20px}
+.coach .role{font-family:var(--font-mono);font-size:12px;color:var(--fg-3);margin-top:3px}
+.coach-foot{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.coach-foot .ig{flex-shrink:0;width:40px;height:40px;border-radius:var(--r-sm);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+
+/* ============================================================ FOOTER ====== */
+footer{background:var(--ink-1000);border-top:1px solid var(--line);padding-top:64px;padding-bottom:32px}
+.foot-blurb{color:var(--fg-2);font-size:15px;line-height:1.55;margin-top:16px;max-width:340px}
+.foot-socials{display:flex;gap:10px;margin-top:20px}
+.foot-socials a{width:40px;height:40px;border-radius:var(--r-sm);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.foot-col-h{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:16px}
+.foot-links{display:flex;flex-direction:column;gap:11px}
+.foot-links a{font-size:15px;color:var(--fg-2);transition:color .16s}
+.foot-links a:hover{color:var(--volt-500)}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px}
+.foot-bottom span{font-family:var(--font-mono);font-size:12px;color:var(--fg-3)}
+
+/* ============================================================ MODAL ======= */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(3,4,6,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal-box{width:100%;max-width:460px;background:var(--ink-800);border:1px solid var(--line-strong);border-radius:var(--r-lg);box-shadow:var(--shadow-lg),var(--glow-volt-sm);overflow:hidden}
+.modal-head{position:relative;padding:22px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.modal-head .ttl{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:19px;text-transform:uppercase}
+.modal-close{background:transparent;border:none;color:var(--fg-2);cursor:pointer}
+.modal-body{padding:24px;display:flex;flex-direction:column;gap:16px}
+.modal-done{padding:36px 24px 30px;display:none;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.modal.done .modal-body{display:none}
+.modal.done .modal-done{display:flex}
+.modal.done .ttl-book{display:none}
+.ttl-done{display:none}
+.modal.done .ttl-done{display:inline}
+.done-check{width:68px;height:68px;border-radius:50%;background:var(--volt-500);display:flex;align-items:center;justify-content:center;box-shadow:var(--glow-volt);color:var(--fg-on-volt)}
+.done-check i{width:34px;height:34px}
+.done-ttl{font-family:var(--font-display);font-weight:800;font-size:24px}
+
+/* ============================================================ ANIM ======== */
+@keyframes floatUp{from{transform:translateY(22px)}to{transform:none}}
+.rise{animation:floatUp .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes flick{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.6}94%{opacity:1}96%{opacity:.75}97%{opacity:1}}
+.flicker{animation:flick 6s infinite}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+
+/* ============================================================ RESPONSIVE == */
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .contact-grid,.about-grid,.loc-grid{grid-template-columns:1fr;gap:32px}
+  .cards-grid,.pricing-grid,.pay-grid{grid-template-columns:repeat(2,1fr)}
+  .trio-grid,.gal-grid{grid-template-columns:1fr 1fr}
+  .vf-a,.vf-b{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:1080px){
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+}
+@media(max-width:760px){
+  .nav-cta{display:none}
+  .cards-grid,.pricing-grid,.pay-grid,.trio-grid,.gal-grid,.vf-a,.vf-b{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .section{padding:64px 0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================ NAV ======== -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="brand" aria-label="Troopers Studio">
+      <svg width="30" height="30" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="flicker">
+        <defs>
+          <filter id="glowGreen" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="6" result="b"></feGaussianBlur>
+            <feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+          </filter>
+        </defs>
+        <path d="M70 44 L186 116 a8 8 0 0 1 0 8 L70 196 a8 8 0 0 1 -12 -7 V51 a8 8 0 0 1 12 -7 Z" stroke="#00E47E" stroke-width="9" stroke-linejoin="round" fill="none" filter="url(#glowGreen)"></path>
+        <path d="M118 70 L92 124 H116 L104 172 L150 110 H124 L138 70 Z" fill="#00E47E" filter="url(#glowGreen)"></path>
+      </svg>
+      <span class="word">Troopers<span class="volt">.</span></span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#home"><span class="lang-th">หน้าแรก</span><span class="lang-en">Home</span></a>
+      <a href="#classes"><span class="lang-th">คลาส</span><span class="lang-en">Classes</span></a>
+      <a href="#videos"><span class="lang-th">วิดีโอ</span><span class="lang-en">Videos</span></a>
+      <a href="#gallery"><span class="lang-th">แกลเลอรี</span><span class="lang-en">Gallery</span></a>
+      <a href="#about"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+      <a href="#payments"><span class="lang-th">ค่าเรียน</span><span class="lang-en">Payments</span></a>
+      <a href="#location"><span class="lang-th">ที่ตั้ง</span><span class="lang-en">Location</span></a>
+      <a href="#contact"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></a>
+    </div>
+
+    <div class="nav-right">
+      <div class="langtoggle">
+        <button class="langbtn" data-lang="th" aria-pressed="true" onclick="setLang('th')">TH</button>
+        <button class="langbtn" data-lang="en" aria-pressed="false" onclick="setLang('en')">EN</button>
+      </div>
+      <span class="nav-cta">
+        <button class="btn btn-primary btn-sm" onclick="openBook()"><i data-lucide="zap"></i><span class="lang-th">จองคลาส</span><span class="lang-en">Book</span></button>
+      </span>
+      <button class="nav-burger" aria-label="Menu" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
+    </div>
+  </div>
+
+  <div class="wrap mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="closeMenu()"><span class="lang-th">หน้าแรก</span><span class="lang-en">Home</span></a>
+    <a href="#classes" onclick="closeMenu()"><span class="lang-th">คลาส</span><span class="lang-en">Classes</span></a>
+    <a href="#videos" onclick="closeMenu()"><span class="lang-th">วิดีโอ</span><span class="lang-en">Videos</span></a>
+    <a href="#gallery" onclick="closeMenu()"><span class="lang-th">แกลเลอรี</span><span class="lang-en">Gallery</span></a>
+    <a href="#about" onclick="closeMenu()"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+    <a href="#payments" onclick="closeMenu()"><span class="lang-th">ค่าเรียน</span><span class="lang-en">Payments</span></a>
+    <a href="#location" onclick="closeMenu()"><span class="lang-th">ที่ตั้ง</span><span class="lang-en">Location</span></a>
+    <a href="#contact" onclick="closeMenu()"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></a>
+    <div style="padding-top:12px">
+      <button class="btn btn-primary btn-full" onclick="closeMenu();openBook()"><i data-lucide="zap"></i><span class="lang-th">จองคลาส</span><span class="lang-en">Book a class</span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================ HERO / HOME -->
+<header id="home" style="position:relative;overflow:hidden">
+  <div class="glow-bg" style="width:520px;height:520px;background:var(--volt-500);top:-160px;right:-120px;opacity:.26"></div>
+  <div class="glow-bg" style="width:460px;height:460px;background:var(--magenta-500);bottom:-220px;left:-140px;opacity:.2"></div>
+
+  <div class="wrap" style="position:relative;z-index:1;padding-top:64px;padding-bottom:72px">
+    <div class="hero-grid">
+      <div class="rise">
+        <span class="kicker"><span class="lang-th">สตูดิโอสอนเต้น · กรุงเทพฯ</span><span class="lang-en">Dance Studio · Bangkok</span></span>
+        <h1 class="hhead" style="margin-top:20px">
+          <span class="neon-outline-h">Troopers</span><br>
+          <span class="lang-th">เต้นให้สุด </span><span class="lang-en">Dance </span><span class="glow-volt volt"><span class="lang-th">ทุกสไตล์</span><span class="lang-en">Hard</span></span>
+        </h1>
+        <p class="lead" style="margin-top:22px;max-width:460px;font-size:18px">
+          <span class="lang-th">สอนเต้นทั้งเด็กและผู้ใหญ่ ไม่มีพื้นฐานก็เต้นได้ · K-pop cover, Hip-hop, Jazz funk และคลาสส่วนตัว พร้อมห้องซ้อมให้เช่า ใจกลางศรีนครินทร์</span>
+          <span class="lang-en">K-pop cover, hip-hop, jazz funk &amp; private classes for kids and adults — no experience needed. Plus rehearsal rooms for rent, in the heart of Srinakarin.</span>
+        </p>
+        <div style="display:flex;gap:14px;margin-top:28px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-lg" onclick="openBook()"><i data-lucide="zap"></i><span class="lang-th">จองคลาสเลย</span><span class="lang-en">Book a class</span></button>
+          <a class="btn btn-ghost btn-lg" href="#videos"><i data-lucide="play"></i><span class="lang-th">ดูวิดีโอทั้งหมด</span><span class="lang-en">Watch videos</span></a>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><span class="stat-v">113K</span><span class="stat-l"><span class="lang-th">ผู้ติดตาม YouTube</span><span class="lang-en">YouTube subs</span></span></div>
+          <div class="stat"><span class="stat-v">1,500+</span><span class="stat-l"><span class="lang-th">วิดีโอคัฟเวอร์</span><span class="lang-en">Cover videos</span></span></div>
+          <div class="stat"><span class="stat-v"><span class="lang-th">ทุกวัย</span><span class="lang-en">All ages</span></span><span class="stat-l"><span class="lang-th">เด็ก &amp; ผู้ใหญ่</span><span class="lang-en">Kids &amp; adults</span></span></div>
+        </div>
+      </div>
+
+      <div class="rise" style="animation-delay:.08s">
+        <div class="yt" data-yt="3LMNn1_IvBY" style="aspect-ratio:16/10">
+          <img class="yt-thumb" src="https://i.ytimg.com/vi/3LMNn1_IvBY/maxresdefault.jpg" alt="MANTRA — JENNIE" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/3LMNn1_IvBY/hqdefault.jpg'">
+          <div class="yt-scrim"></div>
+          <div class="yt-badge"><span class="chip chip-volt"><span class="lang-th">วิดีโอเด่น</span><span class="lang-en">Featured</span></span></div>
+          <div class="yt-play"><i data-lucide="play"></i></div>
+          <div class="yt-meta">
+            <div class="yt-title">“MANTRA” — JENNIE</div>
+            <div class="yt-sub"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="14" height="14" alt=""><span class="lang-th">คลาสส่วนตัว</span><span class="lang-en">Private dance class</span></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:14px;color:var(--fg-3);font-family:var(--font-mono);font-size:12px;letter-spacing:.03em">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--volt-500);box-shadow:var(--glow-volt-sm)"></span>
+          <span class="lang-th">คลิกเพื่อเล่นวิดีโอจากช่อง Troopers Dance Studio</span><span class="lang-en">Tap to play — straight from the Troopers Dance Studio channel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marq">
+    <div class="marq-track">
+      <span>K-POP COVER<span></span>HIP-HOP<span></span>JAZZ FUNK<span></span>GIRLS HIP-HOP<span></span>KIDS DANCE<span></span>PRIVATE CLASS<span></span>CHOREOGRAPHY<span></span></span>
+      <span>K-POP COVER<span></span>HIP-HOP<span></span>JAZZ FUNK<span></span>GIRLS HIP-HOP<span></span>KIDS DANCE<span></span>PRIVATE CLASS<span></span>CHOREOGRAPHY<span></span></span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ CLASSES ==== -->
+<section id="classes" class="section"><div class="wrap">
+  <div class="sechead">
+    <div>
+      <span class="kicker"><span class="lang-th">คลาสเรียน</span><span class="lang-en">Classes</span></span>
+      <h2 class="shead"><span class="lang-th">เลือกสไตล์ </span><span class="lang-en">Pick your </span><span class="glow-volt volt"><span class="lang-th">ที่ใช่</span><span class="lang-en">style</span></span></h2>
+    </div>
+    <p class="lead" style="max-width:360px;font-size:16px">
+      <span class="lang-th">ทุกคลาสเปิดรับตั้งแต่ผู้เริ่มต้น ครูใจดี สอนละเอียด เรียนสนุกแบบมีจุดมุ่งหมาย</span>
+      <span class="lang-en">Every class welcomes beginners. Friendly instructors, step-by-step coaching, real progress.</span>
+    </p>
+  </div>
+
+  <div class="cards-grid">
+    <!-- K-pop Cover -->
+    <div class="card class-card">
+      <div class="card-top"><div class="icirc"><i data-lucide="sparkles"></i></div><span class="chip chip-volt">K-POP COVER</span></div>
+      <div class="title">K-pop Cover</div>
+      <p class="desc"><span class="lang-th">คัฟเวอร์เพลงฮิตจากศิลปินที่ชอบ ท่าเป๊ะทุกดีเทล</span><span class="lang-en">Full covers of your favorite idol choreography, detail for detail.</span></p>
+      <div class="hr"></div>
+      <div class="foot"><span class="lvl"><span class="lang-th">ทุกระดับ</span><span class="lang-en">All levels</span></span><a class="more" href="#payments"><span class="lang-th">ดูค่าเรียน</span><span class="lang-en">See price</span><i data-lucide="arrow-right"></i></a></div>
+    </div>
+    <!-- Hip-Hop -->
+    <div class="card class-card">
+      <div class="card-top"><div class="icirc"><i data-lucide="flame"></i></div><span class="chip chip-mag">HIP-HOP</span></div>
+      <div class="title">Hip-Hop</div>
+      <p class="desc"><span class="lang-th">กรูฟ พื้นฐานสตรีท จังหวะแน่น มันส์ทุกคลาส</span><span class="lang-en">Groove, street foundations and serious bounce.</span></p>
+      <div class="hr"></div>
+      <div class="foot"><span class="lvl"><span class="lang-th">เริ่มต้น–กลาง</span><span class="lang-en">Beginner–Int</span></span><a class="more" href="#payments"><span class="lang-th">ดูค่าเรียน</span><span class="lang-en">See price</span><i data-lucide="arrow-right"></i></a></div>
+    </div>
+    <!-- Jazz Funk -->
+    <div class="card class-card">
+      <div class="card-top"><div class="icirc"><i data-lucide="star"></i></div><span class="chip chip-blue">JAZZ FUNK</span></div>
+      <div class="title">Jazz Funk</div>
+      <p class="desc"><span class="lang-th">เท่ มีพาวเวอร์ ผสมความเป็นนักแสดงบนเวที</span><span class="lang-en">Powerful, performance-driven choreography with attitude.</span></p>
+      <div class="hr"></div>
+      <div class="foot"><span class="lvl"><span class="lang-th">กลาง–สูง</span><span class="lang-en">Int–Adv</span></span><a class="more" href="#payments"><span class="lang-th">ดูค่าเรียน</span><span class="lang-en">See price</span><i data-lucide="arrow-right"></i></a></div>
+    </div>
+    <!-- Kids -->
+    <div class="card class-card">
+      <div class="card-top"><div class="icirc"><i data-lucide="baby"></i></div><span class="chip chip-purple">KIDS</span></div>
+      <div class="title">Kids Dance</div>
+      <p class="desc"><span class="lang-th">คลาสสำหรับน้องๆ สนุก ปลอดภัย เสริมความมั่นใจ</span><span class="lang-en">Fun, safe classes that build confidence for young dancers.</span></p>
+      <div class="hr"></div>
+      <div class="foot"><span class="lvl"><span class="lang-th">อายุ 5+</span><span class="lang-en">Ages 5+</span></span><a class="more" href="#payments"><span class="lang-th">ดูค่าเรียน</span><span class="lang-en">See price</span><i data-lucide="arrow-right"></i></a></div>
+    </div>
+    <!-- Girls -->
+    <div class="card class-card">
+      <div class="card-top"><div class="icirc"><i data-lucide="heart"></i></div><span class="chip chip-mag">GIRLS</span></div>
+      <div class="title">Girls Hip-Hop</div>
+      <p class="desc"><span class="lang-th">เซ็กซี่ มั่นใจ สไตล์เกิร์ลกรุ๊ป</span><span class="lang-en">Confident, sassy girl-group energy and styling.</span></p>
+      <div class="hr"></div>
+      <div class="foot"><span class="lvl"><span class="lang-th">ทุกระดับ</span><span class="lang-en">All levels</span></span><a class="more" href="#payments"><span class="lang-th">ดูค่าเรียน</span><span class="lang-en">See price</span><i data-lucide="arrow-right"></i></a></div>
+    </div>
+    <!-- Private -->
+    <div class="card class-card">
+      <div class="card-top"><div class="icirc"><i data-lucide="user"></i></div><span class="chip chip-volt">PRIVATE</span></div>
+      <div class="title">Private / Group</div>
+      <p class="desc"><span class="lang-th">เรียนเดี่ยวหรือจัดกลุ่ม ออกแบบท่าเฉพาะงานของคุณ</span><span class="lang-en">1-on-1 or group sessions, custom choreography for your event.</span></p>
+      <div class="hr"></div>
+      <div class="foot"><span class="lvl"><span class="lang-th">ตามนัด</span><span class="lang-en">By appt</span></span><a class="more" href="#payments"><span class="lang-th">ดูค่าเรียน</span><span class="lang-en">See price</span><i data-lucide="arrow-right"></i></a></div>
+    </div>
+  </div>
+
+  <!-- classes in action -->
+  <div class="block-head">
+    <span class="kicker"><span class="lang-th">บรรยากาศจริง</span><span class="lang-en">In action</span></span>
+    <h3 class="subhead"><span class="lang-th">เห็นน้องๆ เต้นจริงในคลาส</span><span class="lang-en">See our dancers in class</span></h3>
+  </div>
+  <div class="trio-grid">
+    <div class="yt yt-sm" data-yt="43pgc7v6_2o" style="aspect-ratio:16/10">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/43pgc7v6_2o/maxresdefault.jpg" alt="Dance Monkey — Kids" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/43pgc7v6_2o/hqdefault.jpg'">
+      <div class="yt-scrim"></div>
+      <div class="yt-badge"><span class="chip chip-purple">KIDS</span></div>
+      <div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“Dance Monkey” — Kids</div><div class="yt-sub"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="14" height="14" alt=""><span class="lang-th">คลาสเด็ก · ครู Lihn</span><span class="lang-en">Kids class · Kru. Lihn</span></div></div>
+    </div>
+    <div class="yt yt-sm" data-yt="j06u-SYaiA4" style="aspect-ratio:16/10">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/j06u-SYaiA4/maxresdefault.jpg" alt="2NE1 Mashup — BABYMONSTER" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/j06u-SYaiA4/hqdefault.jpg'">
+      <div class="yt-scrim"></div>
+      <div class="yt-badge"><span class="chip chip-volt">K-POP</span></div>
+      <div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“2NE1 MASH UP” — BABYMONSTER</div><div class="yt-sub"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="14" height="14" alt=""><span class="lang-th">Troopers Kids · Gen 1</span><span class="lang-en">Troopers Kids · Gen 1</span></div></div>
+    </div>
+    <div class="yt yt-sm" data-yt="bqIzI30NSWI" style="aspect-ratio:16/10">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/bqIzI30NSWI/maxresdefault.jpg" alt="Frozen Dance" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/bqIzI30NSWI/hqdefault.jpg'">
+      <div class="yt-scrim"></div>
+      <div class="yt-badge"><span class="chip chip-blue">GROUP</span></div>
+      <div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“FROZEN DANCE” — Disney</div><div class="yt-sub"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="14" height="14" alt=""><span class="lang-th">คลาสกลุ่มส่วนตัว</span><span class="lang-en">Private dance group</span></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================================================ VIDEOS ===== -->
+<section id="videos" class="section alt" style="overflow:hidden"><div class="wrap">
+  <div class="glow-bg" style="width:420px;height:420px;background:var(--magenta-500);top:-120px;right:-120px;opacity:.16"></div>
+  <div class="sechead" style="position:relative;z-index:1">
+    <div>
+      <span class="kicker"><span class="lang-th">ผลงานคัฟเวอร์</span><span class="lang-en">Cover Videos</span></span>
+      <h2 class="shead"><span class="lang-th">ดูน้องๆ </span><span class="lang-en">Watch us </span><span class="glow-volt volt"><span class="lang-th">เต้น</span><span class="lang-en">move</span></span></h2>
+      <p class="lead" style="margin-top:14px;max-width:520px;font-size:16px">
+        <span class="lang-th">กว่า 1,500 วิดีโอบนช่อง YouTube ของเรา — คัฟเวอร์ K-pop, คลาสเด็ก, คลาสส่วนตัว และโชว์ คลิกเล่นได้เลย</span>
+        <span class="lang-en">Over 1,500 videos on our YouTube channel — K-pop covers, kids classes, private sessions and showcases. Tap any to play.</span>
+      </p>
+    </div>
+    <a class="btn btn-ghost" href="https://www.youtube.com/channel/UCFd6FsdEWqFBnRlJurZcs_Q"><span class="lang-th">ไปที่ช่อง YouTube</span><span class="lang-en">Open YouTube</span><i data-lucide="arrow-up-right"></i></a>
+  </div>
+
+  <div class="videos-feature vf-a">
+    <div class="yt" data-yt="j06u-SYaiA4" style="aspect-ratio:16/9">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/j06u-SYaiA4/maxresdefault.jpg" alt="2NE1 Mashup — BABYMONSTER" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/j06u-SYaiA4/hqdefault.jpg'">
+      <div class="yt-scrim"></div>
+      <div class="yt-badge"><span class="chip chip-volt"><span class="lang-th">ยอดนิยม</span><span class="lang-en">Popular</span></span></div>
+      <div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“2NE1 MASH UP” — BABYMONSTER</div><div class="yt-sub"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="14" height="14" alt=""><span class="lang-th">Troopers Kids · Gen 1</span><span class="lang-en">Troopers Kids · Gen 1</span></div></div>
+    </div>
+    <div class="vstack">
+      <div class="yt yt-sm" data-yt="3LMNn1_IvBY">
+        <img class="yt-thumb" src="https://i.ytimg.com/vi/3LMNn1_IvBY/maxresdefault.jpg" alt="MANTRA — JENNIE" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/3LMNn1_IvBY/hqdefault.jpg'">
+        <div class="yt-scrim"></div>
+        <div class="yt-badge"><span class="chip chip-mag">PRIVATE</span></div>
+        <div class="yt-play"><i data-lucide="play"></i></div>
+        <div class="yt-meta"><div class="yt-title">“MANTRA” — JENNIE</div></div>
+      </div>
+      <div class="yt yt-sm" data-yt="bqIzI30NSWI">
+        <img class="yt-thumb" src="https://i.ytimg.com/vi/bqIzI30NSWI/maxresdefault.jpg" alt="Frozen Dance" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/bqIzI30NSWI/hqdefault.jpg'">
+        <div class="yt-scrim"></div>
+        <div class="yt-badge"><span class="chip chip-blue">GROUP</span></div>
+        <div class="yt-play"><i data-lucide="play"></i></div>
+        <div class="yt-meta"><div class="yt-title">“FROZEN DANCE” — Disney</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="videos-feature vf-b">
+    <div class="yt yt-sm" data-yt="43pgc7v6_2o" style="aspect-ratio:4/3">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/43pgc7v6_2o/maxresdefault.jpg" alt="Dance Monkey — Kids" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/43pgc7v6_2o/hqdefault.jpg'">
+      <div class="yt-scrim"></div>
+      <div class="yt-badge"><span class="chip chip-purple">KIDS</span></div>
+      <div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“Dance Monkey” — Kids</div><div class="yt-sub"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="14" height="14" alt=""><span class="lang-th">คลาสเด็ก · ครู Lihn</span><span class="lang-en">Kids class · Kru. Lihn</span></div></div>
+    </div>
+    <div class="yt" data-yt="j06u-SYaiA4" data-list="UUFd6FsdEWqFBnRlJurZcs_Q" style="aspect-ratio:16/9">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/j06u-SYaiA4/maxresdefault.jpg" alt="Troopers Studio uploads" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/j06u-SYaiA4/hqdefault.jpg'">
+      <div class="yt-scrim"></div>
+      <div class="yt-badge"><span class="chip chip-mag"><i data-lucide="list-video"></i>Playlist</span></div>
+      <div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">▶ Troopers Studio — All uploads</div><div class="yt-sub"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="14" height="14" alt="">1,500+ videos · 113K subscribers</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================================================ GALLERY ==== -->
+<section id="gallery" class="section"><div class="wrap">
+  <div class="sechead">
+    <div>
+      <span class="kicker"><span class="lang-th">แกลเลอรี</span><span class="lang-en">Gallery</span></span>
+      <h2 class="shead"><span class="lang-th">ช่วงเวลา </span><span class="lang-en">Moments </span><span class="glow-volt volt"><span class="lang-th">ของเรา</span><span class="lang-en">on stage</span></span></h2>
+    </div>
+    <p class="lead" style="max-width:340px;font-size:16px">
+      <span class="lang-th">ภาพจากโชว์ งานแข่ง และคลาสจริง · ติดตามเพิ่มเติมที่ Instagram &amp; Facebook</span>
+      <span class="lang-en">Shots from showcases, competitions and real classes — follow along on Instagram &amp; Facebook.</span>
+    </p>
+  </div>
+
+  <!-- Drop real studio photos in place of these placeholders -->
+  <div class="gal-grid">
+    <div class="photo" style="grid-column:span 2;grid-row:span 2"><span class="photo-label"><span class="lang-th">รูปโชว์เวที</span><span class="lang-en">Stage performance</span></span></div>
+    <div class="photo"><span class="photo-label"><span class="lang-th">รูปคลาส</span><span class="lang-en">Class photo</span></span></div>
+    <div class="photo"><span class="photo-label"><span class="lang-th">รูปทีม</span><span class="lang-en">Team photo</span></span></div>
+    <div class="photo"><span class="photo-label"><span class="lang-th">รูปน้องๆ</span><span class="lang-en">Kids</span></span></div>
+    <div class="photo"><span class="photo-label"><span class="lang-th">รูปงานแข่ง</span><span class="lang-en">Competition</span></span></div>
+    <div class="photo" style="grid-column:span 2"><span class="photo-label"><span class="lang-th">รูปบรรยากาศสตูดิโอ</span><span class="lang-en">Studio vibe</span></span></div>
+  </div>
+
+  <div class="block-head" style="margin-top:56px">
+    <span class="kicker"><span class="lang-th">รีลส์ &amp; คลิปสั้น</span><span class="lang-en">Reels &amp; shorts</span></span>
+    <h3 class="subhead"><span class="lang-th">คลิปเด็ดจากช่อง</span><span class="lang-en">Clips from the channel</span></h3>
+  </div>
+  <div class="reels-row">
+    <div class="yt yt-sm" data-yt="bqIzI30NSWI" style="flex:0 0 248px;aspect-ratio:9/16">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/bqIzI30NSWI/maxresdefault.jpg" alt="Frozen Dance" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/bqIzI30NSWI/hqdefault.jpg'">
+      <div class="yt-scrim"></div><div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“FROZEN DANCE” — Disney</div></div>
+    </div>
+    <div class="yt yt-sm" data-yt="43pgc7v6_2o" style="flex:0 0 248px;aspect-ratio:9/16">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/43pgc7v6_2o/maxresdefault.jpg" alt="Dance Monkey" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/43pgc7v6_2o/hqdefault.jpg'">
+      <div class="yt-scrim"></div><div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“Dance Monkey” — Kids</div></div>
+    </div>
+    <div class="yt yt-sm" data-yt="3LMNn1_IvBY" style="flex:0 0 248px;aspect-ratio:9/16">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/3LMNn1_IvBY/maxresdefault.jpg" alt="MANTRA — JENNIE" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/3LMNn1_IvBY/hqdefault.jpg'">
+      <div class="yt-scrim"></div><div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“MANTRA” — JENNIE</div></div>
+    </div>
+    <div class="yt yt-sm" data-yt="j06u-SYaiA4" style="flex:0 0 248px;aspect-ratio:9/16">
+      <img class="yt-thumb" src="https://i.ytimg.com/vi/j06u-SYaiA4/maxresdefault.jpg" alt="2NE1 Mashup" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/j06u-SYaiA4/hqdefault.jpg'">
+      <div class="yt-scrim"></div><div class="yt-play"><i data-lucide="play"></i></div>
+      <div class="yt-meta"><div class="yt-title">“2NE1 MASH UP” — BABYMONSTER</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================================================ ABOUT ====== -->
+<section id="about" class="section alt"><div class="wrap">
+  <div class="about-grid">
+    <div>
+      <span class="kicker"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About us</span></span>
+      <h2 class="shead"><span class="lang-th">สตูดิโอที่ทุกคน</span><span class="lang-en">A studio where</span><br><span class="glow-volt volt"><span class="lang-th">เต้นได้</span><span class="lang-en">anyone dances</span></span></h2>
+      <p class="lead" style="margin-top:20px;font-size:17px;line-height:1.6;max-width:none">
+        <span class="lang-th">Troopers Studio เปิดสอนเต้นที่ Thanya Park ศรีนครินทร์ ตั้งแต่ปี 2019 เราเชื่อว่าทุกคนเต้นได้ — ไม่ว่าจะเป็นเด็กตัวเล็กหรือผู้ใหญ่ที่ไม่มีพื้นฐาน ครูของเราดูแลใกล้ชิด สอนละเอียด และพาน้องๆ ขึ้นโชว์จริงบนเวที</span>
+        <span class="lang-en">Troopers Studio has been teaching dance at Thanya Park, Srinakarin since 2019. We believe everyone can dance — from little kids to total-beginner adults. Our coaches give close, detailed guidance and put students on real stages.</span>
+      </p>
+      <div class="stats-row" style="gap:30px;margin-top:30px">
+        <div class="stat"><span class="stat-v">2019</span><span class="stat-l"><span class="lang-th">เปิดสตูดิโอ</span><span class="lang-en">Est.</span></span></div>
+        <div class="stat"><span class="stat-v">113K</span><span class="stat-l"><span class="lang-th">ผู้ติดตาม</span><span class="lang-en">Subscribers</span></span></div>
+        <div class="stat"><span class="stat-v">1,500+</span><span class="stat-l"><span class="lang-th">วิดีโอ</span><span class="lang-en">Videos</span></span></div>
+        <div class="stat"><span class="stat-v">100%</span><span class="stat-l"><span class="lang-th">รีวิวแนะนำ</span><span class="lang-en">Recommend</span></span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="yt" data-yt="3LMNn1_IvBY" style="aspect-ratio:16/10">
+        <img class="yt-thumb" src="https://i.ytimg.com/vi/3LMNn1_IvBY/maxresdefault.jpg" alt="MANTRA — JENNIE" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/3LMNn1_IvBY/hqdefault.jpg'">
+        <div class="yt-scrim"></div>
+        <div class="yt-badge"><span class="chip chip-volt"><span class="lang-th">คลาสส่วนตัว</span><span class="lang-en">Private</span></span></div>
+        <div class="yt-play"><i data-lucide="play"></i></div>
+        <div class="yt-meta"><div class="yt-title">“MANTRA” — JENNIE</div><div class="yt-sub"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="14" height="14" alt=""><span class="lang-th">คลาสส่วนตัว</span><span class="lang-en">Private dance class</span></div></div>
+      </div>
+      <p style="margin-top:14px;color:var(--fg-3);font-family:var(--font-mono);font-size:12px;letter-spacing:.03em">
+        <span class="lang-th">ตัวอย่างคลาสส่วนตัวกับครูของเรา</span><span class="lang-en">A look at a private class with our coaches.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="block-head">
+    <span class="kicker"><span class="lang-th">ทีมครู</span><span class="lang-en">Our coaches</span></span>
+    <h3 class="subhead"><span class="lang-th">คนที่จะสอนคุณ</span><span class="lang-en">Meet the team</span></h3>
+  </div>
+  <div class="trio-grid">
+    <div class="card coach">
+      <div class="photo" style="height:260px;border-radius:0;border:none"><span class="photo-label"><span class="lang-th">รูปครู</span><span class="lang-en">Coach photo</span></span></div>
+      <div class="coach-foot">
+        <div><div class="name">Kru. Lihn</div><div class="role"><span class="lang-th">ครูใหญ่ · K-pop / Kids</span><span class="lang-en">Head coach · K-pop / Kids</span></div></div>
+        <a class="ig" href="https://instagram.com/lihnlihn_t" title="Instagram"><img src="https://cdn.simpleicons.org/instagram/FF2BC2" width="18" height="18" alt="Instagram"></a>
+      </div>
+    </div>
+    <div class="card coach">
+      <div class="photo" style="height:260px;border-radius:0;border:none"><span class="photo-label"><span class="lang-th">รูปครู</span><span class="lang-en">Coach photo</span></span></div>
+      <div class="coach-foot">
+        <div><div class="name">T. AIIZ</div><div class="role"><span class="lang-th">ครู · Private / Group</span><span class="lang-en">Coach · Private / Group</span></div></div>
+        <a class="ig" href="https://instagram.com/troopers.studio" title="Instagram"><img src="https://cdn.simpleicons.org/instagram/FF2BC2" width="18" height="18" alt="Instagram"></a>
+      </div>
+    </div>
+    <div class="card coach">
+      <div class="photo" style="height:260px;border-radius:0;border:none"><span class="photo-label"><span class="lang-th">รูปครู</span><span class="lang-en">Coach photo</span></span></div>
+      <div class="coach-foot">
+        <div><div class="name">Por</div><div class="role"><span class="lang-th">นักเต้น · Performance</span><span class="lang-en">Dancer · Performance</span></div></div>
+        <a class="ig" href="https://instagram.com/troopers.studio" title="Instagram"><img src="https://cdn.simpleicons.org/instagram/FF2BC2" width="18" height="18" alt="Instagram"></a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================================================ PAYMENTS === -->
+<section id="payments" class="section"><div class="wrap">
+  <div class="center-head">
+    <span class="kicker"><span class="lang-th">ค่าเรียน &amp; การชำระเงิน</span><span class="lang-en">Payments</span></span>
+    <h2 class="shead"><span class="lang-th">เริ่มเต้นวันนี้</span><span class="lang-en">Start dancing</span></h2>
+  </div>
+
+  <div class="pricing-grid">
+    <!-- Drop-in -->
+    <div class="card plan">
+      <div class="plan-name"><span class="lang-th">ดรอปอิน</span><span class="lang-en">Drop-in</span></div>
+      <div class="plan-price"><span class="amt">฿250</span><span class="unit"><span class="lang-th">/ คลาส</span><span class="lang-en">/ class</span></span></div>
+      <div class="hr"></div>
+      <ul>
+        <li><i data-lucide="check"></i><span><span class="lang-th">เข้าเรียน 1 คลาส</span><span class="lang-en">Single class</span></span></li>
+        <li><i data-lucide="check"></i><span><span class="lang-th">เลือกสไตล์ไหนก็ได้</span><span class="lang-en">Any style</span></span></li>
+        <li><i data-lucide="check"></i><span><span class="lang-th">ไม่ต้องสมัครล่วงหน้า</span><span class="lang-en">No commitment</span></span></li>
+      </ul>
+      <button class="btn btn-ghost btn-full" onclick="openBook()"><span class="lang-th">เลือกแพ็กเกจนี้</span><span class="lang-en">Choose plan</span></button>
+    </div>
+    <!-- Monthly (featured) -->
+    <div class="card plan featured">
+      <div class="plan-badge"><span class="chip chip-volt"><i data-lucide="zap"></i><span class="lang-th">คุ้มที่สุด</span><span class="lang-en">Best value</span></span></div>
+      <div class="plan-name"><span class="lang-th">รายเดือน</span><span class="lang-en">Monthly</span></div>
+      <div class="plan-price"><span class="amt">฿2,400</span><span class="unit"><span class="lang-th">/ เดือน</span><span class="lang-en">/ month</span></span></div>
+      <div class="hr"></div>
+      <ul>
+        <li><i data-lucide="check"></i><span><span class="lang-th">เรียนได้ 12 คลาส</span><span class="lang-en">12 classes / month</span></span></li>
+        <li><i data-lucide="check"></i><span><span class="lang-th">ทุกสไตล์ ทุกครู</span><span class="lang-en">All styles &amp; coaches</span></span></li>
+        <li><i data-lucide="check"></i><span><span class="lang-th">ส่วนลดเช่าห้องซ้อม</span><span class="lang-en">Room-rental discount</span></span></li>
+        <li><i data-lucide="check"></i><span><span class="lang-th">จองคิวก่อนใคร</span><span class="lang-en">Priority booking</span></span></li>
+      </ul>
+      <button class="btn btn-primary btn-full" onclick="openBook()"><span class="lang-th">เลือกแพ็กเกจนี้</span><span class="lang-en">Choose plan</span></button>
+    </div>
+    <!-- Kids course -->
+    <div class="card plan">
+      <div class="plan-name"><span class="lang-th">คอร์สเด็ก</span><span class="lang-en">Kids Course</span></div>
+      <div class="plan-price"><span class="amt">฿3,200</span><span class="unit"><span class="lang-th">/ 8 สัปดาห์</span><span class="lang-en">/ 8 weeks</span></span></div>
+      <div class="hr"></div>
+      <ul>
+        <li><i data-lucide="check"></i><span><span class="lang-th">คอร์ส 8 สัปดาห์</span><span class="lang-en">8-week program</span></span></li>
+        <li><i data-lucide="check"></i><span><span class="lang-th">ครูดูแลใกล้ชิด</span><span class="lang-en">Small-group coaching</span></span></li>
+        <li><i data-lucide="check"></i><span><span class="lang-th">โชว์จบคอร์ส</span><span class="lang-en">End-of-term showcase</span></span></li>
+      </ul>
+      <button class="btn btn-ghost btn-full" onclick="openBook()"><span class="lang-th">เลือกแพ็กเกจนี้</span><span class="lang-en">Choose plan</span></button>
+    </div>
+  </div>
+
+  <!-- room rental -->
+  <div class="card room-strip">
+    <div style="display:flex;align-items:center;gap:18px">
+      <div class="icirc blue"><i data-lucide="dribbble"></i></div>
+      <div>
+        <div class="ttl"><span class="lang-th">เช่าห้องซ้อมเต้น</span><span class="lang-en">Rehearsal room rental</span></div>
+        <div class="sub"><span class="lang-th">กระจกเต็มผนัง · เครื่องเสียงพร้อม · แอร์เย็น</span><span class="lang-en">Mirror walls · sound system · air-conditioned</span></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px">
+      <div><span class="bigprice">฿300</span><span class="unit"><span class="lang-th">/ ชม.</span><span class="lang-en">/ hr</span></span></div>
+      <button class="btn btn-blue" onclick="openBook()"><i data-lucide="calendar"></i><span class="lang-th">จองห้อง</span><span class="lang-en">Reserve</span></button>
+    </div>
+  </div>
+
+  <!-- payment methods -->
+  <div class="block-head" style="margin-top:56px;margin-bottom:24px">
+    <span class="kicker"><span class="lang-th">ช่องทางชำระเงิน</span><span class="lang-en">How to pay</span></span>
+  </div>
+  <div class="pay-grid">
+    <div class="card pay-card">
+      <div class="icirc"><i data-lucide="qr-code"></i></div>
+      <div><div class="ttl">PromptPay</div><div class="desc"><span class="lang-th">สแกน QR จ่ายได้ทันที</span><span class="lang-en">Scan the QR to pay instantly</span></div><div class="val">095-xxx-xxxx</div></div>
+    </div>
+    <div class="card pay-card">
+      <div class="icirc"><i data-lucide="landmark"></i></div>
+      <div><div class="ttl"><span class="lang-th">โอนผ่านธนาคาร</span><span class="lang-en">Bank transfer</span></div><div class="desc"><span class="lang-th">ธ. กสิกรไทย · ชื่อบัญชี Troopers Studio</span><span class="lang-en">Kasikorn Bank · acct. Troopers Studio</span></div><div class="val">xxx-x-xxxxx-x</div></div>
+    </div>
+    <div class="card pay-card">
+      <div class="icirc"><i data-lucide="banknote"></i></div>
+      <div><div class="ttl"><span class="lang-th">เงินสด</span><span class="lang-en">Cash</span></div><div class="desc"><span class="lang-th">จ่ายที่สตูดิโอก่อนเข้าคลาส</span><span class="lang-en">Pay at the studio before class</span></div><div class="val"><span class="lang-th">ที่เคาน์เตอร์</span><span class="lang-en">At the counter</span></div></div>
+    </div>
+  </div>
+  <p class="note">
+    <span class="lang-th">* เลขบัญชี/PromptPay เป็นตัวอย่าง — แจ้งเลขจริงเพื่ออัปเดต ส่งสลิปยืนยันทาง Line ได้เลย</span>
+    <span class="lang-en">* Account / PromptPay numbers are placeholders — share the real ones to update. Send your payment slip via Line to confirm.</span>
+  </p>
+</div></section>
+
+<!-- ============================================================ LOCATION === -->
+<section id="location" class="section alt"><div class="wrap">
+  <div class="loc-grid">
+    <div>
+      <span class="kicker"><span class="lang-th">ที่ตั้ง</span><span class="lang-en">Find us</span></span>
+      <h2 class="shead"><span class="lang-th">มาเจอกันที่</span><span class="lang-en">Come to</span><br><span class="glow-volt volt">Thanya Park</span></h2>
+      <div class="info-list">
+        <div class="info-row"><div class="icirc sm"><i data-lucide="map-pin"></i></div><div><div class="lbl"><span class="lang-th">ที่ตั้ง</span><span class="lang-en">Address</span></div><div class="val"><span class="lang-th">Thanya Park ศรีนครินทร์ ชั้น 1 (ติดสำนักงาน Passport)</span><span class="lang-en">Thanya Park, Srinakarin — Floor 1 (next to the Passport office)</span></div></div></div>
+        <div class="info-row"><div class="icirc sm"><i data-lucide="clock"></i></div><div><div class="lbl"><span class="lang-th">เวลาทำการ</span><span class="lang-en">Hours</span></div><div class="val"><span class="lang-th">จันทร์–ศุกร์ 17:00–21:00 · เสาร์–อาทิตย์ 10:00–18:00</span><span class="lang-en">Mon–Fri 17:00–21:00 · Sat–Sun 10:00–18:00</span></div></div></div>
+        <div class="info-row"><div class="icirc sm"><i data-lucide="car"></i></div><div><div class="lbl"><span class="lang-th">การเดินทาง</span><span class="lang-en">Getting here</span></div><div class="val"><span class="lang-th">ย่านศรีนครินทร์–อ่อนนุช–พัฒนาการ มีที่จอดรถในห้าง</span><span class="lang-en">Srinakarin–On Nut–Pattanakan area · mall parking available</span></div></div></div>
+        <div class="info-row"><div class="icirc sm"><i data-lucide="phone"></i></div><div><div class="lbl"><span class="lang-th">โทร / Line</span><span class="lang-en">Phone / Line</span></div><div class="val">097 201 7271 · Line: Troopers-studio</div></div></div>
+      </div>
+      <div style="margin-top:28px">
+        <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Thanya+Park+Srinakarin"><i data-lucide="navigation"></i><span class="lang-th">เปิดใน Google Maps</span><span class="lang-en">Open in Google Maps</span></a>
+      </div>
+    </div>
+
+    <div class="card map-card">
+      <iframe title="Thanya Park Srinakarin map" src="https://www.google.com/maps?q=Thanya%20Park%20Srinakarin%20Bangkok&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================================================ CONTACT ==== -->
+<section id="contact" class="section"><div class="wrap">
+  <div class="contact-grid">
+    <div>
+      <span class="kicker"><span class="lang-th">ติดต่อเรา</span><span class="lang-en">Get in touch</span></span>
+      <h2 class="shead"><span class="lang-th">มาเต้น </span><span class="lang-en">Come </span><span class="glow-volt volt"><span class="lang-th">กับเรา</span><span class="lang-en">dance</span></span></h2>
+      <p class="lead" style="margin-top:18px;max-width:420px;font-size:17px">
+        <span class="lang-th">ทักมาทาง Line ได้เลย ตอบไว นัดทดลองเรียนหรือสอบถามตารางได้ทุกวัน</span>
+        <span class="lang-en">Message us on Line — we reply fast. Book a trial class or ask about the schedule any day.</span>
+      </p>
+      <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="openBook()"><i data-lucide="zap"></i><span class="lang-th">จองคลาส</span><span class="lang-en">Book a class</span></button>
+        <a class="btn btn-ghost" href="https://line.me/ti/p/mO8-MyCeiC"><img src="https://cdn.simpleicons.org/line/00E47E" width="18" height="18" alt="Line"><span class="lang-th">แชทผ่าน Line</span><span class="lang-en">Chat on Line</span></a>
+      </div>
+      <div class="social-row">
+        <a class="social" href="https://web.facebook.com/Troopers.studio.th/" title="Facebook"><img src="https://cdn.simpleicons.org/facebook/1773FF" width="22" height="22" alt="Facebook"></a>
+        <a class="social" href="https://www.youtube.com/channel/UCFd6FsdEWqFBnRlJurZcs_Q" title="YouTube"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="22" height="22" alt="YouTube"></a>
+        <a class="social" href="https://instagram.com/troopers.studio" title="Instagram"><img src="https://cdn.simpleicons.org/instagram/FF2BC2" width="22" height="22" alt="Instagram"></a>
+        <a class="social" href="https://line.me/ti/p/mO8-MyCeiC" title="Line"><img src="https://cdn.simpleicons.org/line/00C753" width="22" height="22" alt="Line"></a>
+        <a class="social" href="https://www.tiktok.com/@troopers.studio1" title="TikTok"><img src="https://cdn.simpleicons.org/tiktok/F4F7FB" width="22" height="22" alt="TikTok"></a>
+      </div>
+    </div>
+
+    <div class="card" style="padding:30px;display:flex;flex-direction:column;gap:16px">
+      <div style="font-family:var(--font-display);font-weight:800;font-size:22px;text-transform:uppercase"><span class="lang-th">ส่งข้อความหาเรา</span><span class="lang-en">Send a message</span></div>
+      <div class="field"><label><span class="lang-th">ชื่อ</span><span class="lang-en">Name</span></label><input data-ph-th="กรอกชื่อของคุณ" data-ph-en="Your name" placeholder="กรอกชื่อของคุณ"></div>
+      <div class="field"><label><span class="lang-th">เบอร์โทร / Line</span><span class="lang-en">Phone / Line</span></label><input placeholder="097 201 7271"></div>
+      <div class="field"><label><span class="lang-th">สนใจคลาส</span><span class="lang-en">Interested in</span></label>
+        <select><option>K-pop Cover</option><option>Hip-Hop</option><option>Jazz Funk</option><option>Kids Dance</option><option>Private class</option><option>Room rental</option></select>
+      </div>
+      <button class="btn btn-primary btn-full" style="margin-top:4px" onclick="openBook()"><i data-lucide="send"></i><span class="lang-th">ส่งข้อความ</span><span class="lang-en">Send message</span></button>
+      <p style="font-family:var(--font-mono);font-size:11px;color:var(--fg-3);text-align:center;letter-spacing:.03em"><span class="lang-th">ทีมงานจะติดต่อกลับทาง Line</span><span class="lang-en">We'll reply on Line.</span></p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================================================ FOOTER ===== -->
+<footer><div class="wrap">
+  <div class="footer-grid">
+    <div>
+      <a href="#home" class="brand" aria-label="Troopers Studio">
+        <svg width="36" height="36" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><filter id="glowGreen2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs>
+          <path d="M70 44 L186 116 a8 8 0 0 1 0 8 L70 196 a8 8 0 0 1 -12 -7 V51 a8 8 0 0 1 12 -7 Z" stroke="#00E47E" stroke-width="9" stroke-linejoin="round" fill="none" filter="url(#glowGreen2)"></path>
+          <path d="M118 70 L92 124 H116 L104 172 L150 110 H124 L138 70 Z" fill="#00E47E" filter="url(#glowGreen2)"></path>
+        </svg>
+        <span class="word" style="font-size:22px">Troopers<span class="volt">.</span></span>
+      </a>
+      <p class="foot-blurb"><span class="lang-th">สตูดิโอสอนเต้นสำหรับทุกวัย ใจกลางศรีนครินทร์ ⚡ ไม่มีพื้นฐานก็เต้นได้</span><span class="lang-en">A dance studio for all ages in Srinakarin, Bangkok. ⚡ No experience needed.</span></p>
+      <div class="foot-socials">
+        <a href="https://web.facebook.com/Troopers.studio.th/" title="Facebook"><img src="https://cdn.simpleicons.org/facebook/1773FF" width="18" height="18" alt="Facebook"></a>
+        <a href="https://www.youtube.com/channel/UCFd6FsdEWqFBnRlJurZcs_Q" title="YouTube"><img src="https://cdn.simpleicons.org/youtube/FF4D4D" width="18" height="18" alt="YouTube"></a>
+        <a href="https://instagram.com/troopers.studio" title="Instagram"><img src="https://cdn.simpleicons.org/instagram/FF2BC2" width="18" height="18" alt="Instagram"></a>
+        <a href="https://line.me/ti/p/mO8-MyCeiC" title="Line"><img src="https://cdn.simpleicons.org/line/00C753" width="18" height="18" alt="Line"></a>
+        <a href="https://www.tiktok.com/@troopers.studio1" title="TikTok"><img src="https://cdn.simpleicons.org/tiktok/F4F7FB" width="18" height="18" alt="TikTok"></a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-col-h"><span class="lang-th">เมนู</span><span class="lang-en">Menu</span></div>
+      <div class="foot-links">
+        <a href="#home"><span class="lang-th">หน้าแรก</span><span class="lang-en">Home</span></a>
+        <a href="#classes"><span class="lang-th">คลาส</span><span class="lang-en">Classes</span></a>
+        <a href="#videos"><span class="lang-th">วิดีโอ</span><span class="lang-en">Videos</span></a>
+        <a href="#gallery"><span class="lang-th">แกลเลอรี</span><span class="lang-en">Gallery</span></a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-col-h"><span class="lang-th">ข้อมูล</span><span class="lang-en">Info</span></div>
+      <div class="foot-links">
+        <a href="#about"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+        <a href="#payments"><span class="lang-th">ค่าเรียน</span><span class="lang-en">Payments</span></a>
+        <a href="#location"><span class="lang-th">ที่ตั้ง</span><span class="lang-en">Location</span></a>
+        <a href="#contact"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="foot-bottom">
+    <span>© 2025 Troopers Studio · Thanya Park, Srinakarin · Bangkok</span>
+    <span>097 201 7271 · Line: Troopers-studio</span>
+  </div>
+</div></footer>
+
+<!-- ============================================================ BOOK MODAL = -->
+<div class="modal" id="book" onclick="if(event.target===this)closeBook()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="ttl">
+        <svg width="28" height="28" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><filter id="glowGreen3" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs>
+          <path d="M70 44 L186 116 a8 8 0 0 1 0 8 L70 196 a8 8 0 0 1 -12 -7 V51 a8 8 0 0 1 12 -7 Z" stroke="#00E47E" stroke-width="9" stroke-linejoin="round" fill="none" filter="url(#glowGreen3)"></path>
+          <path d="M118 70 L92 124 H116 L104 172 L150 110 H124 L138 70 Z" fill="#00E47E" filter="url(#glowGreen3)"></path>
+        </svg>
+        <span class="ttl-book"><span class="lang-th">จองคลาส</span><span class="lang-en">Book a class</span></span>
+        <span class="ttl-done"><span class="lang-th">จองสำเร็จ</span><span class="lang-en">Booked!</span></span>
+      </div>
+      <button class="modal-close" aria-label="Close" onclick="closeBook()"><i data-lucide="x"></i></button>
+    </div>
+
+    <div class="modal-body">
+      <div class="field"><label><span class="lang-th">ชื่อ</span><span class="lang-en">Name</span></label><input data-ph-th="กรอกชื่อของคุณ" data-ph-en="Your name" placeholder="กรอกชื่อของคุณ"></div>
+      <div class="field"><label><span class="lang-th">เบอร์โทร / Line</span><span class="lang-en">Phone / Line</span></label><input placeholder="097 201 7271"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="field"><label><span class="lang-th">สไตล์</span><span class="lang-en">Style</span></label>
+          <select><option>K-pop Cover</option><option>Hip-Hop</option><option>Jazz Funk</option><option>Kids Dance</option><option>Room rental</option></select>
+        </div>
+        <div class="field"><label><span class="lang-th">วัน</span><span class="lang-en">Day</span></label>
+          <select><option>Sat</option><option>Sun</option><option>Mon</option><option>Tue</option><option>Wed</option><option>Thu</option><option>Fri</option></select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" style="margin-top:4px" onclick="confirmBook()"><i data-lucide="zap"></i><span class="lang-th">ยืนยันการจอง</span><span class="lang-en">Confirm booking</span></button>
+      <p style="font-family:var(--font-mono);font-size:11px;color:var(--fg-3);text-align:center;letter-spacing:.03em"><span class="lang-th">ทีมงานจะติดต่อกลับทาง Line</span><span class="lang-en">We'll confirm with you on Line.</span></p>
+    </div>
+
+    <div class="modal-done">
+      <div class="done-check"><i data-lucide="check"></i></div>
+      <div class="done-ttl"><span class="lang-th">เจอกันที่สตูดิโอ!</span><span class="lang-en">See you on the floor!</span></div>
+      <p style="color:var(--fg-2);font-size:15px;line-height:1.5;max-width:320px"><span class="lang-th">รับเรื่องการจองเรียบร้อย ทีมงานจะติดต่อกลับเร็วๆ นี้ทาง Line</span><span class="lang-en">Your booking is in. Our team will reach out shortly on Line.</span></p>
+      <button class="btn btn-ghost" style="margin-top:6px" onclick="closeBook()"><span class="lang-th">ปิด</span><span class="lang-en">Close</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ SCRIPT ===== -->
+<script>
+/* ---- Language toggle (TH default) -------------------------------------- */
+function setLang(lang){
+  document.documentElement.setAttribute('data-lang', lang);
+  document.documentElement.setAttribute('lang', lang);
+  document.querySelectorAll('.langbtn').forEach(function(b){
+    b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
+  });
+  /* localize input placeholders that carry both languages */
+  document.querySelectorAll('input[data-ph-th]').forEach(function(el){
+    el.placeholder = (lang === 'th') ? el.dataset.phTh : el.dataset.phEn;
+  });
+}
+
+/* ---- Mobile menu -------------------------------------------------------- */
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+function closeMenu(){ document.getElementById('mobileMenu').classList.remove('open'); }
+
+/* ---- YouTube facade: load the iframe only when clicked ------------------ */
+document.querySelectorAll('.yt[data-yt]').forEach(function(yt){
+  yt.addEventListener('click', function(){
+    if(yt.dataset.playing) return;
+    yt.dataset.playing = '1';
+    var list = yt.dataset.list;
+    var src = list
+      ? 'https://www.youtube-nocookie.com/embed/videoseries?list=' + list + '&autoplay=1&rel=0'
+      : 'https://www.youtube-nocookie.com/embed/' + yt.dataset.yt + '?autoplay=1&rel=0&modestbranding=1';
+    var f = document.createElement('iframe');
+    f.src = src;
+    f.allow = 'autoplay; encrypted-media; picture-in-picture';
+    f.setAttribute('allowfullscreen', '');
+    yt.innerHTML = '';
+    yt.appendChild(f);
+  });
+});
+
+/* ---- Booking modal ------------------------------------------------------ */
+var bookModal = document.getElementById('book');
+function openBook(){ bookModal.classList.remove('done'); bookModal.classList.add('open'); }
+function closeBook(){ bookModal.classList.remove('open'); }
+function confirmBook(){ bookModal.classList.add('done'); }
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeBook(); });
+
+/* ---- Render icons ------------------------------------------------------- */
+if(window.lucide && window.lucide.createIcons){ window.lucide.createIcons(); }
+</script>
+
+</body>
+</html>
